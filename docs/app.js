@@ -28,7 +28,7 @@ function render(filter = '') {
     const description = row.querySelector('p');
     const type = row.querySelector('.workflow-type');
     const tags = row.querySelector('.tags');
-    const copy = row.querySelector('.copy-url');
+    const skillLink = row.querySelector('.skill-link');
     const link = row.querySelector('.package-link');
     const packageUrl = absoluteUrl(item.package_url);
 
@@ -44,12 +44,8 @@ function render(filter = '') {
       tags.appendChild(span);
     });
     link.href = packageUrl;
-    link.textContent = 'Package';
-    copy.addEventListener('click', async () => {
-      await navigator.clipboard.writeText(packageUrl);
-      copy.textContent = 'Copied';
-      setTimeout(() => { copy.textContent = 'Copy URL'; }, 1300);
-    });
+    link.textContent = 'Download Workflow';
+    skillLink.href = `https://github.com/prakhar1114/ai_mime_marketplace/blob/main/workflows/${item.id}/skills/${item.skill_name}/SKILL.md`;
     list.appendChild(row);
   });
 }

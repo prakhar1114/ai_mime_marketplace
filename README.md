@@ -1,4 +1,4 @@
-# AI Mime Marketplace
+# AI Mime Skills Marketplace
 
 Static marketplace for AI Mime workflows and automations. The repo is designed
 to be hosted directly on GitHub Pages: the webpage, manifest, icons, and zipped

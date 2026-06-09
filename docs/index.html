@@ -3,42 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Mime Marketplace</title>
+  <title>AI Mime Skills Marketplace</title>
   <meta name="description" content="Browse installable AI Mime workflows and automations.">
   <link rel="icon" href="icons/ai-mime-icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header" aria-label="Primary navigation">
-    <a class="brand" href="./" aria-label="AI Mime Marketplace home">
+    <a class="brand" href="./" aria-label="AI Mime Skills Marketplace home">
       <img src="icons/ai-mime-icon.png" alt="" width="32" height="32">
-      <span>AI Mime Marketplace</span>
+      <span>AI Mime Skills Marketplace</span>
     </a>
     <nav>
       <a href="https://aimime.cc/">AI Mime</a>
-      <a href="manifest.json">Manifest</a>
-      <a href="https://github.com/">GitHub</a>
+      <a class="github-btn" href="https://github.com/prakhar1114/ai_mime_marketplace" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">Workflow catalog</p>
-        <h1 id="hero-title">AI Mime Marketplace</h1>
-        <p class="lede">A static catalog of installable workflows and automations for AI Mime workspaces.</p>
-        <div class="hero-actions">
-          <a class="primary-action" href="#catalog">Browse workflows</a>
-          <a class="secondary-action" href="manifest.json">View manifest</a>
-        </div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <img src="icons/ai-mime-icon.png" alt="">
-        <div class="signal signal-a"></div>
-        <div class="signal signal-b"></div>
-        <div class="signal signal-c"></div>
-      </div>
-    </section>
 
     <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
       <div class="section-heading">
@@ -75,7 +57,7 @@
   </main>
 
   <footer>
-    <span>AI Mime Marketplace</span>
+    <span>AI Mime Skills Marketplace</span>
     <span>Static catalog for installable workflows.</span>
   </footer>
 
@@ -91,8 +73,8 @@
         <div class="tags"></div>
       </div>
       <div class="workflow-actions">
-        <button class="copy-url" type="button">Copy URL</button>
-        <a class="package-link">Package</a>
+        <a class="skill-link" target="_blank" rel="noopener">View Skill</a>
+        <a class="package-link">Download Workflow</a>
       </div>
     </article>
   </template>

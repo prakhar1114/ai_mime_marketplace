@@ -287,7 +287,7 @@ def load_manifest() -> dict[str, Any]:
     else:
         manifest = {}
     manifest.setdefault("version", 1)
-    manifest.setdefault("name", "AI Mime Marketplace")
+    manifest.setdefault("name", "AI Mime Skills Marketplace")
     manifest.setdefault("homepage", "https://aimime.cc/")
     manifest.setdefault("items", [])
     if not isinstance(manifest["items"], list):

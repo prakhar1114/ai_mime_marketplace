@@ -73,6 +73,27 @@ body {
   color: var(--accent-dark);
 }
 
+.github-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  font-weight: 700;
+  color: var(--ink) !important;
+  background: rgba(255, 255, 255, 0.75);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.github-btn:hover {
+  border-color: var(--accent) !important;
+  background: #fff !important;
+  transform: translateY(-1px);
+  color: var(--accent-dark) !important;
+}
+
 .hero {
   position: relative;
   display: grid;
