@@ -1,0 +1,2 @@
+# Standard library only. All browser work is delegated to the browser-harness
+# binary (AI_MIME_BROWSER_HARNESS_BIN), which manages its own environment.

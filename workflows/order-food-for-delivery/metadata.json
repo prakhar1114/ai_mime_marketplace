@@ -1,0 +1,9 @@
+{
+  "session_id": "20260115T230913Z-order_food_for_delivery",
+  "name": "order food for delivery",
+  "description": "Place a Swiggy delivery order end-to-end: **search restaurant → pick the right restaurant (Gemini) → open menu → search dish → pick the right dish (Gemini) → add to cart (handling customisation, preferring cheaper options) → open cart →",
+  "created_at": "20260115T230913Z",
+  "platform": "macos",
+  "config": {},
+  "source": "marketplace"
+}

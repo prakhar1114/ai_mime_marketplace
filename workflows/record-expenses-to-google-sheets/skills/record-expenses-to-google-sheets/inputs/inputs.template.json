@@ -1,0 +1,3 @@
+{
+  "receipts_folder_path": "<FILL IN: absolute path to a folder containing receipt files (PDFs and/or images: .pdf .png .jpg .jpeg .heic .webp .tiff .gif). Every file directly in the folder is processed.>"
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "workflow_goal": "Place a Swiggy delivery order by searching for a restaurant and menu item, choosing cheaper/default customizations where needed, adding the item to the cart, and selecting saved address A2.",
+  "user_filesystem_access": {
+    "readable_roots": [],
+    "writable_roots": []
+  },
+  "inputs": [
+    {
+      "name": "restaurant_name",
+      "description": "Restaurant name to search for on Swiggy.",
+      "required": true,
+      "default": "Brik Oven"
+    },
+    {
+      "name": "menu_search_query",
+      "description": "Dish/item search term to use within the restaurant page.",
+      "required": true,
+      "default": "Anna Pizza"
+    }
+  ],
+  "steps": [
+    {
+      "id": "order_food_on_swiggy",
+      "title": "Search restaurant, add item, and select address on Swiggy",
+      "source_subtask_ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "executor": "browser_harness",
+      "goal": "Use a browser tab to open Swiggy directly instead of launching Chrome via Spotlight, search for the specified restaurant, open its page, search within the menu for the requested dish, choose required variants/customizations preferring the cheaper available options when decisions are needed, add the item to the cart, open the cart/checkout flow, and select the saved delivery address labeled A2. Use model judgment only if needed to identify the best matching restaurant/item result or the cheapest variant among visible options.",
+      "inputs": [
+        "restaurant_name",
+        "menu_search_query"
+      ],
+      "outputs": [
+        "checkout_ready_confirmation"
+      ],
+      "success_criteria": "Swiggy shows the chosen item in cart/checkout and the delivery address is set to A2, with the flow ready to proceed to payment/review.",
+      "fallback": "ui_agent"
+    }
+  ]
+}

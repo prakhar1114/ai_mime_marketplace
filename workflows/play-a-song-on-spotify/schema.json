@@ -1,0 +1,136 @@
+{
+  "task_name": "play a song on spotify",
+  "task_description_user": "",
+  "detailed_task_description": "This workflow launches Spotify from the system application launcher and opens the app. It then resets the Spotify search field so a fresh query can be entered. The workflow searches Spotify for the requested song name and selects the top search suggestion or result. Finally, it starts playback from the top matching result.",
+  "task_params": [
+    {
+      "name": "song_name",
+      "type": "string",
+      "description": "The song title or search query to play in Spotify.",
+      "example": "Noor E Khuda",
+      "sensitive": false,
+      "optional": false
+    }
+  ],
+  "success_criteria": "Verify the requested song is playing in Spotify.",
+  "plan": {
+    "subtasks": [
+      {
+        "subtask_i": 0,
+        "text": "Launch Spotify by typing the Spotify application name into the app launcher and confirming the launch. Expected outcome: Spotify is open and ready for interaction.",
+        "dependencies": [],
+        "steps": [
+          {
+            "i": 0,
+            "expected_current_state": "The macOS desktop is visible with no foreground window; an app launcher or search input is already focused and ready for keyboard entry.",
+            "intent": "Type the application name to launch Spotify.",
+            "action_type": "TYPE",
+            "action_value": null,
+            "target": {
+              "primary": "the currently focused app launcher/search input over the desktop",
+              "fallback": "if no input is visible, use the active keyboard focus while the desktop and right-side Dock are visible"
+            },
+            "post_action": [
+              "Spotify becomes the foreground app.",
+              "A Spotify window opens showing music content and playback controls."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 1,
+            "expected_current_state": "Spotify is open on an album or playlist page with the track list and bottom playback bar visible, and keyboard focus is on a player control.",
+            "intent": "Activate the focused fullscreen or expand control from the keyboard.",
+            "action_type": "KEYPRESS",
+            "action_value": null,
+            "target": {
+              "primary": "focused fullscreen/expand icon button at the far right of the bottom playback bar",
+              "fallback": "fullscreen icon in the bottom-right player controls"
+            },
+            "post_action": [
+              "The app enters fullscreen mode.",
+              "A fullscreen help overlay appears near the top of the window."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          }
+        ]
+      },
+      {
+        "subtask_i": 1,
+        "text": "Search Spotify for {song_name}, select the top matching search suggestion or result, and start playback. Expected outcome: The requested song {song_name} is playing in Spotify.",
+        "dependencies": [],
+        "steps": [
+          {
+            "i": 0,
+            "expected_current_state": "Spotify is open on an album or playlist page, with the top search field focused and containing a typed query; a clear-text X button is visible inside the search bar.",
+            "intent": "Clear the current text from the Spotify search field to reset the search input.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "X clear button inside the focused search bar near the top center of the Spotify window",
+              "fallback": "unlabeled icon button at the right side of the active search field"
+            },
+            "post_action": [
+              "The search field is cleared and shows its placeholder text again.",
+              "A dropdown with playable suggestions appears below the search bar."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 1,
+            "expected_current_state": "Spotify is open on a music release page, and the global search field at the top center is focused with a suggestions dropdown visible.",
+            "intent": "Enter the song query into Spotify's focused search box.",
+            "action_type": "TYPE",
+            "action_value": "{song_name}",
+            "target": {
+              "primary": "Focused top-center search field with the placeholder text \"What do you want to play?\" and a magnifying glass icon.",
+              "fallback": "Top search bar between the Home icon and the right-side search controls."
+            },
+            "post_action": [
+              "The typed query appears in the search field.",
+              "The dropdown changes from recent suggestions to search suggestions/results."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 2,
+            "expected_current_state": "Spotify desktop app is open with the search field focused, a query already entered, and the autocomplete suggestions dropdown visible over the current music view.",
+            "intent": "Select the top search suggestion to run the search and show results.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "top search suggestion row directly under the search bar, showing a magnifying-glass icon and the current query text",
+              "fallback": "the first row in the search suggestions dropdown below the focused search field"
+            },
+            "post_action": [
+              "The suggestions dropdown closes and the search results page is shown.",
+              "Category filter chips and a results list appear below the search bar."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 3,
+            "expected_current_state": "Spotify is open on a search results page with a query entered, showing a list of matching songs or videos and a details panel on the right.",
+            "intent": "Start playback of the top search result.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "green circular Play button at the far right of the first highlighted search result row near the top of the results list",
+              "fallback": "Play icon button inside the top result card, next to the more-options and add icons"
+            },
+            "post_action": [
+              "The selected result begins playing or resumes playback.",
+              "The player controls update to reflect active playback."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          }
+        ]
+      }
+    ]
+  }
+}

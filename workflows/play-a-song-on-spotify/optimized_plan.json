@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "workflow_goal": "Play the requested song in Spotify and verify playback starts.",
+  "user_filesystem_access": {
+    "readable_roots": [],
+    "writable_roots": []
+  },
+  "inputs": [
+    {
+      "name": "song_name",
+      "description": "The song title or search query to play in Spotify.",
+      "required": true,
+      "default": null
+    }
+  ],
+  "steps": [
+    {
+      "id": "resolve_and_play_spotify_track",
+      "title": "Resolve And Play Track",
+      "source_subtask_ids": [
+        0,
+        1
+      ],
+      "executor": "script",
+      "goal": "Resolve the best matching Spotify track for song_name by searching the Spotify web catalog via the browser harness and extracting the track id, then start playback by opening the spotify:track:<id> URL scheme (which uses the user's existing logged-in Spotify session). If multiple plausible matches are returned, use constrained LLM judgment to choose the best match from structured track metadata. Verify Spotify is playing the resolved track.",
+      "inputs": [
+        "song_name"
+      ],
+      "outputs": [
+        "playing_track"
+      ],
+      "success_criteria": "Spotify is running, playback is active, and the current track title/artist metadata matches the requested song query.",
+      "fallback": "ui_agent"
+    }
+  ]
+}

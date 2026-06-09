@@ -1,0 +1,9 @@
+{
+  "session_id": "20260602T202321Z-play_a_song_on_spotify",
+  "name": "play a song on spotify",
+  "description": "Play a requested song on the Spotify desktop app on macOS. Use this whenever the user wants to play, put on, or start a specific track/song by name on Spotify. Resolves the best matching track from Spotify's catalog and starts playback using the existing logged-in Spotify session.",
+  "created_at": "20260602T202321Z",
+  "platform": "macos",
+  "config": {},
+  "source": "marketplace"
+}

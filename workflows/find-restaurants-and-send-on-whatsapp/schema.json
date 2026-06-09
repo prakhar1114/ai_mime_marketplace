@@ -1,0 +1,366 @@
+{
+  "task_name": "find restaurants and send on whatsapp",
+  "task_description_user": "",
+  "detailed_task_description": "Open a browser, navigate to Google Maps, search for restaurants in a specified area, and capture the top results. Extract the primary name and URL for the configured number of restaurants from the left-side results panel, defaulting to five. Then close the Google Maps search tab, open WhatsApp, locate a specified contact, send the intro message \"suggested places to eat, do a thumbsup where we should meet\", and send each place as a separate message. The workflow is parameterized so different search queries, contacts, and result counts can be used without changing the steps.",
+  "task_params": [
+    {
+      "name": "search_query",
+      "type": "string",
+      "description": "The search query typed into Google Maps (e.g., cuisine and area). Used in the Maps search step to find relevant restaurants.",
+      "example": "italian restaurants in indiranagar",
+      "sensitive": false,
+      "optional": false
+    },
+    {
+      "name": "contact_name",
+      "type": "string",
+      "description": "Exact contact name to search for in WhatsApp's chat search box; used to open the correct chat before sending the message.",
+      "example": "Prakhar Jain",
+      "sensitive": false,
+      "optional": false
+    },
+    {
+      "name": "result_limit",
+      "type": "integer",
+      "description": "Number of top Google Maps restaurant results to extract and send. Defaults to 5 when omitted.",
+      "example": 5,
+      "sensitive": false,
+      "optional": true,
+      "default": 5
+    }
+  ],
+  "success_criteria": "The workflow extracts the configured number of restaurant names and URLs from Google Maps for the requested search, closes the Maps search tab after extraction, and sends the intro plus each place as separate WhatsApp messages to the specified contact.",
+  "plan": {
+    "subtasks": [
+      {
+        "subtask_i": 0,
+        "text": "Launch Google Chrome and open Google Maps in a new browser tab. Expected outcome: Google Chrome is focused and Google Maps is loaded in a visible tab.",
+        "dependencies": [],
+        "steps": [
+          {
+            "i": 0,
+            "expected_current_state": "macOS desktop visible with no active app windows; menu bar and system status icons are shown along the top of the screen.",
+            "intent": "Open the Spotlight search so the user can search for apps or files.",
+            "action_type": "KEYPRESS",
+            "action_value": "CMD+SPACE",
+            "target": {
+              "primary": "Desktop area with the menu bar visible at the top (macOS desktop background)",
+              "fallback": null
+            },
+            "post_action": [
+              "A Spotlight search field appears near the top center of the screen.",
+              "Keyboard focus is placed inside the Spotlight search field."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 1,
+            "expected_current_state": "macOS desktop with Spotlight Search open and the search input focused near the top-center of the screen (placeholder text visible).",
+            "intent": "Enter the app name into Spotlight to locate and launch it from search results.",
+            "action_type": "TYPE",
+            "action_value": "chrome",
+            "target": {
+              "primary": "Spotlight Search text field near the top-center with a magnifying glass icon and placeholder text 'Spotlight Search'.",
+              "fallback": null
+            },
+            "post_action": [
+              "The search field is populated with the entered query and the Spotlight results panel updates.",
+              "Matching applications and documents are shown in the results list."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 2,
+            "expected_current_state": "macOS Spotlight search overlay is open in the center of the screen; the search field contains the text 'chrome' and search results (including 'Google Chrome') are visible below.",
+            "intent": "Launch the selected search result (Google Chrome) from Spotlight.",
+            "action_type": "KEYPRESS",
+            "action_value": "ENTER",
+            "target": {
+              "primary": "Spotlight search field containing the text 'chrome' in the center overlay (with the 'Google Chrome' result shown below).",
+              "fallback": null
+            },
+            "post_action": [
+              "Spotlight/search overlay is dismissed.",
+              "The selected application opens in the foreground (a Chrome browser window becomes active)."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 3,
+            "expected_current_state": "Chrome browser window is focused with a GitHub repository page open in the active tab; the browser tab bar is visible with multiple tabs.",
+            "intent": "Open a new browser tab.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "New tab button (plus '+' icon) in the browser tab bar near the right end of the existing tabs",
+              "fallback": null
+            },
+            "post_action": [
+              "A new browser tab opened and became active.",
+              "The page content changed from the GitHub repo view to the browser's new-tab/homepage."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 4,
+            "expected_current_state": "Chrome new-tab page with the browser address/search bar (omnibox) focused and ready for typing; the page shows the Google logo and a central search box.",
+            "intent": "Enter the term into the browser address bar to navigate to Google Maps.",
+            "action_type": "TYPE",
+            "action_value": "maps",
+            "target": {
+              "primary": "browser address/search bar (omnibox) at the top of the window",
+              "fallback": "central page search box labeled 'Search Google or type a URL'"
+            },
+            "post_action": [
+              "Typed characters appear in the address bar and an autocomplete dropdown of search and site suggestions opens below it."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 5,
+            "expected_current_state": "A Chrome window is showing the Google Maps page; the 'Search Google Maps' input near the top-left is focused and a suggestion dropdown is visible over the map.",
+            "intent": "Submit the current search or selected suggestion so Maps loads the corresponding results on the map.",
+            "action_type": "KEYPRESS",
+            "action_value": "ENTER",
+            "target": {
+              "primary": "The 'Search Google Maps' text field near the top-left of the Maps window, with the suggestion dropdown visible beneath it.",
+              "fallback": "The browser address bar showing 'google.com/maps' at the top of the window."
+            },
+            "post_action": [
+              "The suggestion dropdown closes and the search is executed.",
+              "The map and left-side panel update to show search results/location details."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          }
+        ]
+      },
+      {
+        "subtask_i": 1,
+        "text": "Search Google Maps for '{search_query}', run the search, and extract the primary names and URLs of the top {result_limit} restaurant entries from the left-side results panel; save them as extract_0 in display order. Expected outcome: extract_0 contains {result_limit} restaurant place objects, each with name and URL, in order from the top of the left results list.",
+        "dependencies": [],
+        "steps": [
+          {
+            "i": 0,
+            "expected_current_state": "Google Maps in a desktop browser with the map visible; the search input is visible near the top-left and ready for text entry (search suggestions panel may be shown).",
+            "intent": "Enter a search query to find Italian restaurants in the Indiranagar area.",
+            "action_type": "TYPE",
+            "action_value": "{search_query}",
+            "target": {
+              "primary": "Search input box labeled 'Search Google Maps' at the top-left of the window (search field with magnifying-glass icon)",
+              "fallback": "magnifying-glass icon/button near the top-left (search control)"
+            },
+            "post_action": [
+              "The search input now contains the typed query.",
+              "The suggestion list updates to show matching search suggestions based on the entered text."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 1,
+            "expected_current_state": "Google Maps in a desktop browser with the search box focused and an autocomplete dropdown of query suggestions visible at top-left; the map is displayed on the right.",
+            "intent": "Choose the suggested autocomplete entry to run the search for Italian restaurants in Indiranagar.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "Autocomplete suggestion reading \"italian restaurants in indiranagar bangalore\" in the dropdown directly beneath the search box (top suggestion, top-left).",
+              "fallback": "Top item in the search suggestions dropdown under the search field (left side of the window)."
+            },
+            "post_action": [
+              "The left pane populates with search results for restaurants.",
+              "A Results list replaces the suggestion dropdown and shows individual restaurant entries."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 2,
+            "expected_current_state": "Google Maps web view with a search results side panel on the left and a map on the right; the left panel shows a vertical list of restaurant result cards under a 'Results' heading.",
+            "intent": "Extract the top configured number of restaurant names and URLs from the left-side results list for sharing. Example extracted content: Spettacolare with its Google Maps URL, Pasta Street with its Google Maps URL, La Gioia with its Google Maps URL",
+            "action_type": "EXTRACT",
+            "action_value": "extract_0",
+            "target": {
+              "primary": "Left results panel under the search box and 'Results' heading — the vertical list of restaurant result cards showing each place's primary name at the top of the card.",
+              "fallback": null
+            },
+            "post_action": [
+              "not relevant"
+            ],
+            "variable_name": "extract_0",
+            "additional_args": {
+              "extract_query": "Extract the primary name text and Google Maps URL of the first {result_limit} restaurant entries in the left results panel, returning place objects in the order displayed."
+            }
+          },
+          {
+            "i": 3,
+            "expected_current_state": "Google Maps in a browser with the search results panel visible on the left and the interactive map on the right; a small selection/highlight overlay is visible on the map near the map center.",
+            "intent": "Clear the current map selection or activate the map by clicking an empty area of the map.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "Unlabeled area of the main map panel near the visible 'ISKCON Temple Goshala' label (center-right of the map).",
+              "fallback": null
+            },
+            "post_action": [
+              "The temporary selection or highlight overlay on the map is removed.",
+              "The map remains active and ready for further interaction."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          }
+        ]
+      },
+      {
+        "subtask_i": 2,
+        "text": "Open WhatsApp, find the chat for '{contact_name}', send the intro message \"suggested places to eat, do a thumbsup where we should meet\", then send each extracted restaurant place ({extract_0}) as a separate message containing its name and URL. Expected outcome: the chat with {contact_name} receives the intro and each place in separate WhatsApp messages.",
+        "dependencies": [
+          "extract_0"
+        ],
+        "steps": [
+          {
+            "i": 0,
+            "expected_current_state": "Chrome browser window is visible showing Google Maps with the left-side results panel and the map; no system search overlay is visible and the desktop/menu bar is accessible.",
+            "intent": "Open macOS Spotlight with the keyboard shortcut so the user can search for and launch an application.",
+            "action_type": "KEYPRESS",
+            "action_value": "CMD+SPACE",
+            "target": {
+              "primary": "macOS menu bar area at the top-center of the screen (invoke system Spotlight via keyboard shortcut)",
+              "fallback": null
+            },
+            "post_action": [
+              "A Spotlight search overlay appears near the top-center of the screen.",
+              "A search field and list of suggestions/results are shown on top of the current window."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 1,
+            "expected_current_state": "A Google Maps browser window is visible with the left search/results panel open; a system search/Spotlight overlay is shown in the center of the screen with its text input focused over the map.",
+            "intent": "Type into the system search/Spotlight to locate the WhatsApp application or WhatsApp Web.",
+            "action_type": "TYPE",
+            "action_value": "wha",
+            "target": {
+              "primary": "System search / Spotlight text input field in the center overlay (with suggestion list below)",
+              "fallback": null
+            },
+            "post_action": [
+              "The system search/Spotlight overlay is dismissed.",
+              "Underlying Google Maps window and the left results panel are fully visible again."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 2,
+            "expected_current_state": "Web browser window (Google Maps) is open showing search results for restaurants; the Maps search input near the top-left contains the query text and appears focused.",
+            "intent": "Submit the focused search input to run the query.",
+            "action_type": "KEYPRESS",
+            "action_value": "ENTER",
+            "target": {
+              "primary": "Search box near the top-left of the Google Maps page containing the query text (visible: 'italian restaurants in indiranagar ba')",
+              "fallback": null
+            },
+            "post_action": [
+              "The Enter key was pressed to submit the focused input.",
+              "The active window changed to WhatsApp for Mac showing the chats list and search field."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 3,
+            "expected_current_state": "WhatsApp desktop showing the Chats list in the left column and an empty main pane on the right; a search input is visible at the top of the left sidebar but not focused.",
+            "intent": "Focus the search bar so the user can search chats or messages.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "Search input field near the top of the left sidebar with placeholder text 'Ask Meta AI or Search'.",
+              "fallback": "Search bar near top-left with a magnifying-glass icon"
+            },
+            "post_action": [
+              "The search input becomes focused (visible outline) and is ready for typing.",
+              "Search suggestions and the 'Search WhatsApp' list appear below the search field."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 4,
+            "expected_current_state": "WhatsApp desktop main window with the Chats pane visible on the left; the search input near the top of the left sidebar is active/focusable and chat list is shown below.",
+            "intent": "Enter a contact name into the search box to locate the chat.",
+            "action_type": "TYPE",
+            "action_value": "{contact_name}",
+            "target": {
+              "primary": "Search input field near the top of the left sidebar with placeholder text like 'Ask Meta AI or Search' (magnifying-glass icon nearby)",
+              "fallback": null
+            },
+            "post_action": [
+              "The search input displays the entered text.",
+              "The left-side chat list updates to show matching contact(s)."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 5,
+            "expected_current_state": "WhatsApp desktop app showing the Chats column on the left with the search box populated (search results visible). The conversation pane on the right is currently empty/idle and no chat messages are displayed.",
+            "intent": "Open the chat for 'Prakhar Jain (You)' to view its messages.",
+            "action_type": "CLICK",
+            "action_value": null,
+            "target": {
+              "primary": "Chat list entry labeled \"Prakhar Jain (You)\" in the Chats column, directly below the search field near the top of the left sidebar.",
+              "fallback": "the top/first chat result under 'Chats' that matches the search query"
+            },
+            "post_action": [
+              "The conversation pane on the right opens and displays messages for the selected contact.",
+              "The corresponding chat entry in the left Chats list becomes selected/highlighted."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 6,
+            "expected_current_state": "WhatsApp Desktop is open with the correct conversation visible in the right pane. The chat message compose/input area is visible at the bottom of the right pane and is ready for text entry.",
+            "intent": "Paste the intro message, then each restaurant place message, into the chat's message input field one at a time.",
+            "action_type": "TYPE",
+            "action_value": "{extract_0}",
+            "target": {
+              "primary": "Message input text box at the bottom of the right chat pane",
+              "fallback": null
+            },
+            "post_action": [
+              "The message input field contains the current message to send.",
+              "Each place is staged as its own separate single-line message."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          },
+          {
+            "i": 7,
+            "expected_current_state": "WhatsApp Desktop with the correct chat open. The message text input at the bottom contains the current single-line message and is focused.",
+            "intent": "Send the current message from the message input to the open chat using the Return key.",
+            "action_type": "KEYPRESS",
+            "action_value": "ENTER",
+            "target": {
+              "primary": "message text input at the bottom (contains the typed text and is focused)",
+              "fallback": null
+            },
+            "post_action": [
+              "A new outgoing message bubble appears at the bottom of the chat.",
+              "The message input is cleared and ready for the next separate message."
+            ],
+            "variable_name": null,
+            "additional_args": {}
+          }
+        ]
+      }
+    ]
+  }
+}

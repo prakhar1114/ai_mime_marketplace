@@ -1,0 +1,10 @@
+{
+  "from": "<station_code_or_known_city>",
+  "to": "<station_code_or_known_city>",
+  "date": "YYYY-MM-DD",
+  "train": "",
+  "class": "",
+  "passengers": [
+    { "name": "<full_name_<=16_chars>", "sex": "M", "age": 0 }
+  ]
+}

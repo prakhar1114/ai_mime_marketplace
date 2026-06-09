@@ -1,0 +1,9 @@
+{
+  "session_id": "20260112T181715Z-find_restaurants_and_send_on_whatsapp",
+  "name": "find restaurants and send on whatsapp",
+  "description": "Search Google Maps for restaurants matching a query, capture a configurable number of top result names and URLs, and send them as separate WhatsApp messages via the native WhatsApp Mac app.",
+  "created_at": "20260112T181715Z",
+  "platform": "macos",
+  "config": {},
+  "source": "marketplace"
+}

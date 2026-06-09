@@ -1,0 +1,5 @@
+{
+  "items": "<OPTIONAL: comma-separated grocery items, e.g. milk, bread, instant coffee>",
+  "query": "<OPTIONAL: natural-language request, e.g. add dairy products to the cart>",
+  "max_orders": 10
+}

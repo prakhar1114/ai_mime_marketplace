@@ -1,0 +1,9 @@
+{
+  "session_id": "20260311T141553Z-record_expenses_to_google_sheets",
+  "name": "record expenses to google sheets",
+  "description": "Read every receipt file (PDFs and images) from a local folder, extract merchant/description/total via PDF text parsing + Gemini, and append one row per receipt to a fixed Expenses Google Sheet (Idx / Description / Cost) at the bottom. Never deduplicates — every run appends every receipt currently in the folder.",
+  "created_at": "20260311T141553Z",
+  "platform": "macos",
+  "config": {},
+  "source": "marketplace"
+}

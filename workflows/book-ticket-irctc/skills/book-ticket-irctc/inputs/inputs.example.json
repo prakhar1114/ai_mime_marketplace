@@ -1,0 +1,10 @@
+{
+  "from": "bhopal",
+  "to": "delhi",
+  "date": "2026-07-01",
+  "train": "shatabdi",
+  "class": "CC",
+  "passengers": [
+    { "name": "Prakhar Jain", "sex": "M", "age": 28 }
+  ]
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Mime Marketplace</title>
+  <meta name="description" content="Browse installable AI Mime workflows and automations.">
+  <link rel="icon" href="icons/ai-mime-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="brand" href="./" aria-label="AI Mime Marketplace home">
+      <img src="icons/ai-mime-icon.png" alt="" width="32" height="32">
+      <span>AI Mime Marketplace</span>
+    </a>
+    <nav>
+      <a href="https://aimime.cc/">AI Mime</a>
+      <a href="manifest.json">Manifest</a>
+      <a href="https://github.com/">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Workflow catalog</p>
+        <h1 id="hero-title">AI Mime Marketplace</h1>
+        <p class="lede">A static catalog of installable workflows and automations for AI Mime workspaces.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#catalog">Browse workflows</a>
+          <a class="secondary-action" href="manifest.json">View manifest</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <img src="icons/ai-mime-icon.png" alt="">
+        <div class="signal signal-a"></div>
+        <div class="signal signal-b"></div>
+        <div class="signal signal-c"></div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Available packages</p>
+          <h2 id="catalog-title">Workflows and automations</h2>
+        </div>
+        <label class="search-label">
+          <span>Search</span>
+          <input id="search" type="search" autocomplete="off" placeholder="Search workflows">
+        </label>
+      </div>
+      <div id="catalog-list" class="catalog-list" aria-live="polite"></div>
+    </section>
+
+    <section class="publish-section" aria-labelledby="publish-title">
+      <p class="eyebrow">Package contract</p>
+      <h2 id="publish-title">Each listing is a zipped workflow directory.</h2>
+      <div class="contract-grid">
+        <div>
+          <h3>Manifest metadata</h3>
+          <p>Every item includes a name, description, icon, tags, package URL, version, and checksum.</p>
+        </div>
+        <div>
+          <h3>Install path</h3>
+          <p>AI Mime can download the package, preview it through the import validator, then install it into Tasks.</p>
+        </div>
+        <div>
+          <h3>Static hosting</h3>
+          <p>GitHub Pages serves this page, the manifest, icons, and package zips without a marketplace backend.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>AI Mime Marketplace</span>
+    <span>Static catalog for installable workflows.</span>
+  </footer>
+
+  <template id="item-template">
+    <article class="workflow-row">
+      <img class="workflow-icon" alt="">
+      <div class="workflow-main">
+        <div class="workflow-title-line">
+          <h3></h3>
+          <span class="workflow-type"></span>
+        </div>
+        <p></p>
+        <div class="tags"></div>
+      </div>
+      <div class="workflow-actions">
+        <button class="copy-url" type="button">Copy URL</button>
+        <a class="package-link">Package</a>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

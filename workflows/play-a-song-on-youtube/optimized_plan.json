@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "workflow_goal": "Open YouTube, search for the requested song, open the top result, and start playback.",
+  "user_filesystem_access": {
+    "readable_roots": [],
+    "writable_roots": []
+  },
+  "inputs": [
+    {
+      "name": "song_name",
+      "description": "Song or video search query to enter on YouTube.",
+      "required": true,
+      "default": "numb linkin park"
+    }
+  ],
+  "steps": [
+    {
+      "id": "play_song_on_youtube",
+      "title": "Search YouTube and start playback",
+      "source_subtask_ids": [
+        0,
+        1,
+        2
+      ],
+      "executor": "browser_harness",
+      "goal": "Use a browser tab to navigate directly to YouTube search results for the provided song name via URL parameters instead of launching Safari through Spotlight and typing through the site UI, then open the top video result and ensure playback starts. If selecting the correct first playable result requires lightweight page judgment, use schema-constrained model judgment within the browser step.",
+      "inputs": [
+        "song_name"
+      ],
+      "outputs": [
+        "playback_started"
+      ],
+      "success_criteria": "A YouTube watch page is open for a result matching the query and the video is playing or has been explicitly started in the player.",
+      "fallback": "ui_agent"
+    }
+  ]
+}

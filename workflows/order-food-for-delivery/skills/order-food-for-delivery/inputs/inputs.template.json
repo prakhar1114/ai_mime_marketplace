@@ -1,0 +1,5 @@
+{
+  "restaurant_name": "<restaurant name to search on Swiggy, e.g. Pizza Hut>",
+  "menu_search_query": "<dish to find on that restaurant's menu, e.g. Margherita Pizza>",
+  "address_label": "<saved delivery address label to deliver to (optional, default A2)>"
+}

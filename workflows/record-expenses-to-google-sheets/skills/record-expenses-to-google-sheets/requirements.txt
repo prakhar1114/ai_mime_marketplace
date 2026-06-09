@@ -1,0 +1,9 @@
+# Python dependencies for scripts/run.py (the host runner).
+#
+# Only non-stdlib package the runner imports directly is pdfplumber
+# (used in _pdf_text to extract text from receipt PDFs).
+#
+# NOTE: Gemini calls and Chrome automation are delegated to the external
+# `browser-harness` CLI via subprocess, so its deps are intentionally NOT
+# listed here — browser-harness manages its own environment.
+pdfplumber>=0.11

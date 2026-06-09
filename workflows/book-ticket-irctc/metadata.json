@@ -1,0 +1,9 @@
+{
+  "session_id": "20260517T102609Z-book_ticket_irctc",
+  "name": "book ticket irctc",
+  "description": "Book a train ticket on IRCTC by driving the existing browser-harness `irctc/booking_fsm.py` against an already-logged-in IRCTC tab. Pre-condition — the user must open https://www.irctc.co.in/nget/train-search and log in manually before running.",
+  "created_at": "20260517T102609Z",
+  "platform": "macos",
+  "config": {},
+  "source": "marketplace"
+}

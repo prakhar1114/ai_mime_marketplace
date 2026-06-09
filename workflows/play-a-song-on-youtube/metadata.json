@@ -1,0 +1,9 @@
+{
+  "session_id": "20260109T230814Z-play_a_song_on_youtube",
+  "name": "play a song on youtube",
+  "description": "Play a requested song on YouTube via a browser tab and verify the watch-page <video> element is actually playing.",
+  "created_at": "20260109T230814Z",
+  "platform": "macos",
+  "config": {},
+  "source": "marketplace"
+}
