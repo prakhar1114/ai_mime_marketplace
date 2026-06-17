@@ -59,6 +59,7 @@ def main() -> None:
         item["package_url"] = f"packages/{package.name}"
         item["sha256"] = sha256(package)
         item["size_bytes"] = package.stat().st_size
+        item["github_folder_path"] = f"skills/{skill_dir.name}"
     MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 

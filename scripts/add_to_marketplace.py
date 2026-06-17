@@ -387,6 +387,7 @@ def migrate(args: argparse.Namespace) -> None:
         "author": args.author,
         "tags": tags,
         "icon": DEFAULT_ICON,
+        "github_folder_path": f"skills/{workflow_id}",
         "package_url": f"packages/{package.name}",
         "sha256": sha256(package),
         "size_bytes": package.stat().st_size,
