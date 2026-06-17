@@ -17,7 +17,7 @@ function render(filter = '') {
   });
 
   if (!filtered.length) {
-    list.innerHTML = '<p class="empty-state">No workflows match this search.</p>';
+    list.innerHTML = '<p class="empty-state">No skills match this search.</p>';
     return;
   }
 
@@ -36,7 +36,7 @@ function render(filter = '') {
     icon.alt = `${item.name} icon`;
     title.textContent = item.name;
     description.textContent = item.description;
-    type.textContent = item.type || 'workflow';
+    type.textContent = item.type || 'skill';
     tags.innerHTML = '';
     (item.tags || []).forEach((tag) => {
       const span = document.createElement('span');
@@ -44,8 +44,8 @@ function render(filter = '') {
       tags.appendChild(span);
     });
     link.href = packageUrl;
-    link.textContent = 'Download Workflow';
-    skillLink.href = `https://github.com/prakhar1114/ai_mime_marketplace/blob/main/workflows/${item.id}/skills/${item.skill_name}/SKILL.md`;
+    link.textContent = 'Download Skill';
+    skillLink.href = `https://github.com/prakhar1114/ai_mime_marketplace/blob/main/skills/${item.id}/SKILL.md`;
     list.appendChild(row);
   });
 }
