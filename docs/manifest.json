@@ -20,7 +20,8 @@
       "package_url": "packages/book-ticket-irctc.zip",
       "sha256": "18687fa52b199c83e48ddcb5f33590f46736de79e3458e982727813889a6cacf",
       "size_bytes": 13261,
-      "github_folder_path": "skills/book-ticket-irctc"
+      "github_folder_path": "skills/book-ticket-irctc",
+      "entrypoint": "run.sh"
     },
     {
       "id": "find-restaurants-and-send-on-whatsapp",
@@ -38,7 +39,8 @@
       "package_url": "packages/find-restaurants-and-send-on-whatsapp.zip",
       "sha256": "7d3a8a9f63cdd87ae4ca0e14a49657ce5e8b14b84ebd120c2803bc28fb0520c0",
       "size_bytes": 11923,
-      "github_folder_path": "skills/find-restaurants-and-send-on-whatsapp"
+      "github_folder_path": "skills/find-restaurants-and-send-on-whatsapp",
+      "entrypoint": "run.sh"
     },
     {
       "id": "jira-ticket-comment",
@@ -52,12 +54,13 @@
       "package_url": "packages/jira-ticket-comment.zip",
       "sha256": "83058c8f5055f9290177fb8cc3e5ac6d28115872eb1dc29f84420f3c9297fc16",
       "size_bytes": 4705,
-      "github_folder_path": "skills/jira-ticket-comment"
+      "github_folder_path": "skills/jira-ticket-comment",
+      "entrypoint": "run.sh"
     },
     {
       "id": "order-food-for-delivery",
-      "name": "Order Food For Delivery",
-      "description": "",
+      "name": "order-food-for-delivery",
+      "description": "Place a Swiggy delivery order end-to-end: search restaurant → pick the right restaurant  → open menu → search dish → pick the right dish  → add to cart (handling customisation, preferring cheaper options) → open cart → select saved address A2. Stops at the ready-to-pay checkout — never pays.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -68,14 +71,15 @@
       ],
       "icon": "icons/ai-mime-icon.png",
       "package_url": "packages/order-food-for-delivery.zip",
-      "sha256": "950468242a0393bc3fa6e53d3650088ef0ac02acaf06f7a0fbca625a9eb01313",
-      "size_bytes": 13050,
-      "github_folder_path": "skills/order-food-for-delivery"
+      "sha256": "2e225a82b5d8bfe107b76b0c82dd39993d44a83908ef084fbde32f74392aefc9",
+      "size_bytes": 13091,
+      "github_folder_path": "skills/order-food-for-delivery",
+      "entrypoint": "run.sh"
     },
     {
       "id": "order-grocery-on-blinkit",
       "name": "order-grocery-on-blinkit",
-      "description": ">-",
+      "description": "Add grocery items to the Blinkit (blinkit.com) cart using the user's already-logged-in Chrome. Accepts either an explicit comma-separated list of items or a natural-language request like \"add dairy products\" / \"add vegetables to the cart\" — for a natural-language request it reads the user's last 10 orders and composes the matching items from what they previously bought. Reads order history to bias product selection toward the brands and pack sizes the user usually buys, searches each item, AI-picks the best match, and adds it to the cart. Stops at the cart — never checks out or pays. Use whenever the user wants to order groceries on Blinkit, restock items, build a Blinkit cart, \"add X, Y, Z to my Blinkit\", or reorder a category of things they usually buy.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -88,12 +92,13 @@
       "package_url": "packages/order-grocery-on-blinkit.zip",
       "sha256": "f58f5ba692e08079e110757dd3f3013f9ca93deac7e13c76c69f5ab93266dc94",
       "size_bytes": 15934,
-      "github_folder_path": "skills/order-grocery-on-blinkit"
+      "github_folder_path": "skills/order-grocery-on-blinkit",
+      "entrypoint": "run.sh"
     },
     {
       "id": "play-a-song-on-spotify",
-      "name": "Play A Song On Spotify",
-      "description": "",
+      "name": "play-a-song-on-spotify",
+      "description": "Play a requested song on Spotify via the Spotify Web Player using the user's already-logged-in browser session. Accepts a natural language query and plays the closest match on Spotify.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -104,9 +109,10 @@
       ],
       "icon": "icons/ai-mime-icon.png",
       "package_url": "packages/play-a-song-on-spotify.zip",
-      "sha256": "128c830f79ae98e8eb65321be6719112911dba88b8159423dc13bd5cff33096d",
-      "size_bytes": 3577,
-      "github_folder_path": "skills/play-a-song-on-spotify"
+      "sha256": "716ccfd0ced44abb7fd761924d389a2b8f7d0c48e81b7c992efdc12479daea09",
+      "size_bytes": 4469,
+      "github_folder_path": "skills/play-a-song-on-spotify",
+      "entrypoint": "run.sh"
     },
     {
       "id": "play-a-song-on-youtube",
@@ -124,12 +130,13 @@
       "package_url": "packages/play-a-song-on-youtube.zip",
       "sha256": "b17cb1a431bce5d6a7512b21b89adf32020453e41a000d0c31f699f94bac5dba",
       "size_bytes": 9148,
-      "github_folder_path": "skills/play-a-song-on-youtube"
+      "github_folder_path": "skills/play-a-song-on-youtube",
+      "entrypoint": "run.sh"
     },
     {
       "id": "record-expenses-to-google-sheets",
       "name": "record-expenses-to-google-sheets",
-      "description": "Read every receipt file (PDFs and images) from a local folder, extract merchant/description/total via PDF text parsing + Gemini, and append one row per receipt to a fixed Expenses Google Sheet (Idx / Description / Cost) at the bottom. Never deduplicates — every run appends every receipt currently in the folder.",
+      "description": "Read every receipt file (PDFs and images) from a local folder, extract merchant/description/total via PDF text parsing + LLM, and append one row per receipt to a fixed Expenses Google Sheet (Idx / Description / Cost) at the bottom. Never deduplicates — every run appends every receipt currently in the folder.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -142,12 +149,13 @@
       "package_url": "packages/record-expenses-to-google-sheets.zip",
       "sha256": "29ff84ec1449358d13ec759962ebb8f524dc8071ada0c5adf23a8ec0111383f5",
       "size_bytes": 13319,
-      "github_folder_path": "skills/record-expenses-to-google-sheets"
+      "github_folder_path": "skills/record-expenses-to-google-sheets",
+      "entrypoint": "run.sh"
     },
     {
       "id": "send-slack-message",
       "name": "send-slack-message",
-      "description": ">-",
+      "description": "Post a message to a Slack channel using a Slack bot token via the Slack Web API, and return a clickable permalink to the posted message. Use this whenever the user wants to send, post, or announce a message to a Slack channel through a bot, drop a notification into Slack, or push text to a Slack channel programmatically — even if they don't say \"API\". Takes a channel and message text; posts as the bot and returns the message link.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -156,7 +164,8 @@
       "package_url": "packages/send-slack-message.zip",
       "sha256": "018cfd34ed07b0e4b14862d9e51456bb7d20d015970b99b2ebe1da273aaad969",
       "size_bytes": 5517,
-      "github_folder_path": "skills/send-slack-message"
+      "github_folder_path": "skills/send-slack-message",
+      "entrypoint": "run.sh"
     }
   ]
 }

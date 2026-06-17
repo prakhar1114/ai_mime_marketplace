@@ -46,6 +46,10 @@ def package_skill(skill_dir: Path) -> Path:
 
 
 def main() -> None:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent))
+    from add_to_marketplace import parse_frontmatter, description_from_skill
+
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     items = manifest.get("items") or []
     by_id = {item.get("id"): item for item in items if isinstance(item, dict)}
@@ -56,6 +60,17 @@ def main() -> None:
         item = by_id.get(skill_dir.name)
         if not item:
             continue
+        
+        skill_md = skill_dir / "SKILL.md"
+        if skill_md.exists():
+            fields, _ = parse_frontmatter(skill_md)
+            desc = description_from_skill(skill_dir)
+            if fields.get("name"):
+                item["name"] = fields["name"]
+            if desc:
+                item["description"] = desc
+
+        item["entrypoint"] = "run.sh"
         item["package_url"] = f"packages/{package.name}"
         item["sha256"] = sha256(package)
         item["size_bytes"] = package.stat().st_size

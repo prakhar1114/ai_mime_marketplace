@@ -1,7 +1,16 @@
+---
+name: order-food-for-delivery
+description: >-
+  Place a Swiggy delivery order end-to-end: search restaurant → pick the right
+  restaurant  → open menu → search dish → pick the right dish  →
+  add to cart (handling customisation, preferring cheaper options) → open cart →
+  select saved address A2. Stops at the ready-to-pay checkout — never pays.
+---
+
 # order-food-for-delivery
 
 Place a Swiggy delivery order end-to-end: **search restaurant → pick the right
-restaurant (Gemini) → open menu → search dish → pick the right dish (Gemini) →
+restaurant  → open menu → search dish → pick the right dish  →
 add to cart (handling customisation, preferring cheaper options) → open cart →
 select saved address A2**. Stops at the ready-to-pay checkout — never pays.
 
