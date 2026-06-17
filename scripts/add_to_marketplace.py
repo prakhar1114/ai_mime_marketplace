@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKFLOWS = ROOT / "workflows"
+SKILLS = ROOT / "skills"
 DOCS = ROOT / "docs"
 PACKAGES = DOCS / "packages"
 MANIFEST = DOCS / "manifest.json"
@@ -324,7 +324,7 @@ def migrate(args: argparse.Namespace) -> None:
     workflow_id = args.id or slugify(display_name, fallback=source_skill.name)
     workflow_id = slugify(workflow_id, fallback=source_skill.name)
 
-    workflow_dst = WORKFLOWS / workflow_id
+    workflow_dst = SKILLS / workflow_id
     if args.dry_run:
         print(f"source_type={source_type}")
         print(f"source_skill={source_skill}")

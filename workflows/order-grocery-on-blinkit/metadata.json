@@ -1,6 +1,0 @@
-{
-  "name": "order grocery on blinkit",
-  "description": "Add grocery items to the Blinkit (blinkit.com) cart using the user's already-logged-in Chrome. Accepts either an explicit comma-separated list of items or a natural-language request like \"add dairy products\" / \"add vegetables to the cart\" — for a natural-language request it reads the user's last 10 orders and composes the matching items from what they previously bought. Reads order history to bias product selection toward the brands and pack sizes the user usually buys, searches each item, AI-picks the best match, and adds it to the cart. Stops at the cart — never checks out or pays. Use whenever the user wants to order groceries on Blinkit, restock items, build a Blinkit cart, \"add X, Y, Z to my Blinkit\", or reorder a category of things they usually buy.",
-  "source": "marketplace",
-  "created_at": "2026-06-08T08:53:53Z"
-}
