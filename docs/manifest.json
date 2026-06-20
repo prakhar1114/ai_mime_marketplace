@@ -60,7 +60,7 @@
     {
       "id": "order-food-for-delivery",
       "name": "order-food-for-delivery",
-      "description": "Place a Swiggy delivery order end-to-end: search restaurant → pick the right restaurant  → open menu → search dish → pick the right dish  → add to cart (handling customisation, preferring cheaper options) → open cart → select saved address A2. Stops at the ready-to-pay checkout — never pays.",
+      "description": "Place a Swiggy delivery order end-to-end: search restaurant → pick the right restaurant → open menu → search dish → pick the right dish → add to cart (handling customisation, preferring cheaper options) → open cart → select saved address A2. Stops at the ready-to-pay checkout — never pays.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -71,8 +71,8 @@
       ],
       "icon": "icons/ai-mime-icon.png",
       "package_url": "packages/order-food-for-delivery.zip",
-      "sha256": "2e225a82b5d8bfe107b76b0c82dd39993d44a83908ef084fbde32f74392aefc9",
-      "size_bytes": 13091,
+      "sha256": "b96b06c09dbe7c93428e4f7e9cf57d71a6d1fc352fc52c04195ea4ea07e2d5f8",
+      "size_bytes": 13089,
       "github_folder_path": "skills/order-food-for-delivery",
       "entrypoint": "run.sh"
     },
@@ -136,7 +136,7 @@
     {
       "id": "record-expenses-to-google-sheets",
       "name": "record-expenses-to-google-sheets",
-      "description": "Read every receipt file (PDFs and images) from a local folder, extract merchant/description/total via PDF text parsing + LLM, and append one row per receipt to a fixed Expenses Google Sheet (Idx / Description / Cost) at the bottom. Never deduplicates — every run appends every receipt currently in the folder.",
+      "description": "Read every receipt file (PDFs and images) from a local folder, extract merchant/description/total via PDF text parsing + Gemini, and append one row per receipt to a fixed Expenses Google Sheet (Idx / Description / Cost) at the bottom. Never deduplicates — every run appends every receipt currently in the folder.",
       "type": "skill",
       "version": "0.1.0",
       "author": "AI Mime",
@@ -165,6 +165,26 @@
       "sha256": "018cfd34ed07b0e4b14862d9e51456bb7d20d015970b99b2ebe1da273aaad969",
       "size_bytes": 5517,
       "github_folder_path": "skills/send-slack-message",
+      "entrypoint": "run.sh"
+    },
+    {
+      "id": "subreddit-search",
+      "name": "subreddit-search",
+      "description": "Scrape top Reddit posts from a subreddit in Chrome, optionally filtered by a search query, and return title, URL, upvotes, comments, and body text.",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "reddit",
+        "scraper",
+        "search",
+        "browser"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/subreddit-search.zip",
+      "sha256": "db73bb938027725373b7baf7383c25271c45367a3c029925c19a37d1728035a1",
+      "size_bytes": 6934,
+      "github_folder_path": "skills/subreddit-search",
       "entrypoint": "run.sh"
     }
   ]

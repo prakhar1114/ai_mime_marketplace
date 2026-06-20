@@ -12,7 +12,7 @@ DOCS = ROOT / "docs"
 PACKAGES = DOCS / "packages"
 MANIFEST = DOCS / "manifest.json"
 SKIP_DIRS = {".venv", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "agent", "runs", "outputs", ".agent"}
-SKIP_FILES = {".DS_Store", "manifest.jsonl", "step_cards.json", "plan_creation.json", "finalized_plan.json"}
+SKIP_FILES = {".DS_Store", "manifest.jsonl", "step_cards.json", "plan_creation.json", "finalized_plan.json", ".env"}
 SKIP_SUFFIXES = {".pyc", ".pyo", ".log", ".tmp", ".temp"}
 
 
