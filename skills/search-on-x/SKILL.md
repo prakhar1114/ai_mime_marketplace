@@ -73,9 +73,15 @@ Progress is emitted to stderr as JSON lines:
 
 The browser harness also emits human-readable scroll progress to stderr, for example `scroll 4: collected 13/50`.
 
+When fewer results are available than `limit`, the runner stops early in this order:
+
+- immediately when X shows its no-results empty state;
+- when the main search timeline is exhausted, with no loader and blank space after the last visible post;
+- as a last fallback, after 3 consecutive scroll cycles add no new posts.
+
 ## Fallback
 
-If the script fails, read `references/fallback_plan.md`. The fallback is to open the generated X search URL or X Advanced Search manually, use the Top tab, scroll the timeline, and extract fields from visible posts.
+If the script fails, read `references/fallback_plan.md`. The fallback is to open the generated X search URL or X Advanced Search manually, use the Top tab, scroll the timeline, stop when X shows no results or the timeline is visibly exhausted, and extract fields from visible posts.
 
 ## ask_llm decision points
 

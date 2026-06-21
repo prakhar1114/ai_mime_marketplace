@@ -169,6 +169,34 @@ def extract_visible():
     return js(expr)
 
 
+def timeline_state():
+    expr = \"\"\"
+    (() => {{
+      const body = document.body ? document.body.innerText : ``;
+      const emptyTexts = Array.from(document.querySelectorAll(`[data-testid="empty_state_header_text"], [data-testid="empty_state_body_text"]`))
+        .map((e) => e.innerText.trim())
+        .filter(Boolean);
+      const hasEmptyText = /No results|No posts|Try searching for something else|Search for something else/i.test(body);
+      const bottomDistance = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
+      const loading = document.querySelectorAll(`[role="progressbar"]`).length > 0;
+      const articles = Array.from(document.querySelectorAll(`article[data-testid="tweet"], article`));
+      const visibleArticleBottoms = articles
+        .map((a) => a.getBoundingClientRect().bottom)
+        .filter((bottom) => bottom > 0);
+      const lastArticleBottom = visibleArticleBottoms.length ? Math.max(...visibleArticleBottoms) : null;
+      const blankAfterLastArticle = lastArticleBottom !== null && lastArticleBottom < (window.innerHeight - 80);
+      return {{
+        empty: emptyTexts.length > 0 || hasEmptyText,
+        empty_texts: emptyTexts,
+        bottom_distance: bottomDistance,
+        loading,
+        blank_after_last_article: blankAfterLastArticle
+      }};
+    }})()
+    \"\"\"
+    return js(expr)
+
+
 terms = build_search_terms(INPUTS)
 search_url = f"https://x.com/search?f=top&q={{quote(terms)}}&src=typed_query"
 progress(f"opening X search: {{search_url}}")
@@ -185,19 +213,30 @@ seen = {{}}
 stall = 0
 last_count = 0
 max_scrolls = max(30, min(280, limit * 4))
+stall_limit = 3
 
 for step in range(max_scrolls):
+    before_count = len(seen)
     for item in extract_visible():
         seen[item["url"]] = item
     count = len(seen)
+    state = timeline_state()
     progress(f"scroll {{step}}: collected {{count}}/{{limit}}")
+    if count == 0 and state.get("empty"):
+        progress("stopping because X reported no matching results")
+        break
     if count >= limit:
         break
     if count == last_count:
         stall += 1
     else:
         stall = 0
-    if stall >= 14:
+    at_bottom = float(state.get("bottom_distance") or 999999) <= 2
+    timeline_exhausted = at_bottom or bool(state.get("blank_after_last_article"))
+    if count == before_count and timeline_exhausted and not state.get("loading"):
+        progress("stopping at end of X results")
+        break
+    if stall >= stall_limit:
         progress("stopping after repeated scrolls with no new posts")
         break
     last_count = count
