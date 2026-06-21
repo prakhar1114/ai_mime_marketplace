@@ -1,0 +1,6 @@
+{
+  "query": "<FILL IN: exact query phrase to search for on X>",
+  "since": "<FILL IN: lower date/datetime bound, for example 2026-06-20; default is yesterday>",
+  "until": "<FILL IN: upper date/datetime bound, for example 2026-06-21; default is today>",
+  "limit": 100
+}

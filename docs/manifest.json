@@ -173,6 +173,27 @@
       "entrypoint": "run.sh"
     },
     {
+      "id": "search-on-x",
+      "name": "search-on-x",
+      "description": "Search X for an exact query with since/until filters, scroll results through the browser harness, and return posts sorted by likes with author, engagement, URL, views, and content fields.",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "x",
+        "twitter",
+        "search",
+        "scraper",
+        "browser"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/search-on-x.zip",
+      "sha256": "ead7b06d32523e73e22f7aed1998b285c94f701c4f329fc8ae0d08d2cc14fcc6",
+      "size_bytes": 7002,
+      "github_folder_path": "skills/search-on-x",
+      "entrypoint": "run.sh"
+    },
+    {
       "id": "send-slack-message",
       "name": "send-slack-message",
       "description": "Post a message to a Slack channel using a Slack bot token via the Slack Web API, and return a clickable permalink to the posted message. Use this whenever the user wants to send, post, or announce a message to a Slack channel through a bot, drop a notification into Slack, or push text to a Slack channel programmatically — even if they don't say \"API\". Takes a channel and message text; posts as the bot and returns the message link.",

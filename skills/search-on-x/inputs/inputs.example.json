@@ -1,0 +1,6 @@
+{
+  "query": "computer use",
+  "since": "2026-06-20",
+  "until": "2026-06-21",
+  "limit": 10
+}
