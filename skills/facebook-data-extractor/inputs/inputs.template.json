@@ -1,0 +1,5 @@
+{
+  "group_url": "<FILL IN: Facebook group URL, for example https://www.facebook.com/groups/1279620962532340>",
+  "days": "<FILL IN: number of days back from the run time to include>",
+  "max_scrolls": "<FILL IN: optional maximum scroll batches, 5-500; omit for default>"
+}

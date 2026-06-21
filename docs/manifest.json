@@ -24,6 +24,26 @@
       "entrypoint": "run.sh"
     },
     {
+      "id": "facebook-data-extractor",
+      "name": "facebook-data-extractor",
+      "description": "Extract visible posts from a Facebook group for the last N days using the AI Mime browser harness and an existing logged-in Facebook Chrome session.",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "facebook",
+        "scraper",
+        "extractor",
+        "browser"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/facebook-data-extractor.zip",
+      "sha256": "3f81c261053738f424c0ecf663643410be5ac3d20347316ceb80191bb164d39f",
+      "size_bytes": 11461,
+      "github_folder_path": "skills/facebook-data-extractor",
+      "entrypoint": "run.sh"
+    },
+    {
       "id": "find-restaurants-and-send-on-whatsapp",
       "name": "find-restaurants-and-send-on-whatsapp",
       "description": "Search Google Maps for restaurants matching a query, capture a configurable number of top result names and URLs, and send them as separate WhatsApp messages via the native WhatsApp Mac app.",
