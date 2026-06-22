@@ -173,6 +173,26 @@
       "entrypoint": "run.sh"
     },
     {
+      "id": "reply-on-x",
+      "name": "reply-on-x",
+      "description": "Reply to an X post or comment from the user's already logged-in Chrome session using browser-harness, and return the posted reply URL. Use when the user gives an x.com status link and reply text and wants the reply posted.",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "x",
+        "twitter",
+        "reply",
+        "browser"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/reply-on-x.zip",
+      "sha256": "2206cfbd221235ae108b646cfe30670de8a30adbede37362e69a3328f3b22dc1",
+      "size_bytes": 5919,
+      "github_folder_path": "skills/reply-on-x",
+      "entrypoint": "run.sh"
+    },
+    {
       "id": "search-on-x",
       "name": "search-on-x",
       "description": "Search X for an exact query with since/until filters, scroll results through the browser harness, and return posts sorted by likes with author, engagement, URL, views, and content fields.",
