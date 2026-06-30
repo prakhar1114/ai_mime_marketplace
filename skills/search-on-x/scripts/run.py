@@ -26,7 +26,7 @@ def parse_inputs(path):
     if not isinstance(data, dict):
         raise ValueError("inputs JSON must be an object")
 
-    query = str(data.get("query", "")).strip()
+    query = str(data.get("query", "")).strip().lower()
     if not query:
         raise ValueError("input 'query' is required")
 

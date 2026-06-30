@@ -208,8 +208,8 @@
       ],
       "icon": "icons/ai-mime-icon.png",
       "package_url": "packages/search-on-x.zip",
-      "sha256": "ead7b06d32523e73e22f7aed1998b285c94f701c4f329fc8ae0d08d2cc14fcc6",
-      "size_bytes": 7002,
+      "sha256": "2342965c2b18a33e50d2216c762356987fabe6b4984bc3d8be0a052d85f856ae",
+      "size_bytes": 8031,
       "github_folder_path": "skills/search-on-x",
       "entrypoint": "run.sh"
     },
