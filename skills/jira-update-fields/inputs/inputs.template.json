@@ -1,0 +1,5 @@
+{
+  "ticket": "<FILL IN: Jira issue key, e.g. KAN-2>",
+  "field": "<FILL IN: Jira field id or field name, e.g. summary, description, or customfield_10011>",
+  "value": "<FILL IN: replacement field value>"
+}

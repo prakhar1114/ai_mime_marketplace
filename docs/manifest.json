@@ -63,6 +63,21 @@
       "entrypoint": "run.sh"
     },
     {
+      "id": "jira-get-fields",
+      "name": "jira-get-fields",
+      "description": "Fetch Jira Cloud issue fields through Jira REST API v3 and return a compact, cleaned JSON payload. Use when the user wants issue field values, custom fields, description text, comments, subtasks, or other returned Jira fields without duplicate metadata-heavy structures.",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/jira-get-fields.zip",
+      "sha256": "eabbd370778a548e2948f4fed7d00ed740b03496f556eebfb189e12500478559",
+      "size_bytes": 7657,
+      "github_folder_path": "skills/jira-get-fields",
+      "entrypoint": "run.sh"
+    },
+    {
       "id": "jira-ticket-comment",
       "name": "jira-ticket-comment",
       "description": "Add a comment to a Jira Cloud ticket using the Jira REST API. Takes a ticket key and comment text and posts the comment to that issue.",
@@ -75,6 +90,21 @@
       "sha256": "83058c8f5055f9290177fb8cc3e5ac6d28115872eb1dc29f84420f3c9297fc16",
       "size_bytes": 4705,
       "github_folder_path": "skills/jira-ticket-comment",
+      "entrypoint": "run.sh"
+    },
+    {
+      "id": "jira-update-fields",
+      "name": "jira-update-fields",
+      "description": "Update a Jira Cloud ticket field using Jira REST API v3. Use when the user wants to overwrite a Jira issue field such as summary, description, or a customfield value.",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/jira-update-fields.zip",
+      "sha256": "72a512176ec84308b57d059f47eab18550eb9a33ba8368de5ad9ff8c13f51e47",
+      "size_bytes": 6642,
+      "github_folder_path": "skills/jira-update-fields",
       "entrypoint": "run.sh"
     },
     {
