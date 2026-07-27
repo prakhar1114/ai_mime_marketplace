@@ -2,7 +2,7 @@
   "version": 1,
   "name": "AI Mime Skills Marketplace",
   "homepage": "https://aimime.cc/",
-  "updated_at": "2026-06-09T00:00:00Z",
+  "updated_at": "2026-07-27T07:10:14Z",
   "items": [
     {
       "id": "book-ticket-irctc",
@@ -42,6 +42,54 @@
       "size_bytes": 11461,
       "github_folder_path": "skills/facebook-data-extractor",
       "entrypoint": "run.sh"
+    },
+    {
+      "id": "fetch-linkedin-message-history",
+      "name": "fetch-linkedin-message-history",
+      "description": "Fetch full chat message history for a specific LinkedIn thread",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "linkedin",
+        "messaging"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/fetch-linkedin-message-history.zip",
+      "sha256": "4000f31c3cee6fac032a264573037c56fbf468ca85a832adbfc5a737eeaa2c30",
+      "size_bytes": 11582,
+      "github_folder_path": "skills/fetch-linkedin-message-history",
+      "entrypoint": "run.sh",
+      "requires_login": true,
+      "side_effects": [],
+      "stops_before_payment": null,
+      "safety_notes": [
+        "Requires the user to already be logged in to the relevant service."
+      ]
+    },
+    {
+      "id": "fetch-linkedin-message-threads",
+      "name": "fetch-linkedin-message-threads",
+      "description": "Retrieve recent LinkedIn messaging conversation threads",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "linkedin",
+        "messaging"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/fetch-linkedin-message-threads.zip",
+      "sha256": "3973423ac7025fc575429fa1e6fc25ac92782ee7f6ee1b87af57025f8bb70173",
+      "size_bytes": 7710,
+      "github_folder_path": "skills/fetch-linkedin-message-threads",
+      "entrypoint": "run.sh",
+      "requires_login": true,
+      "side_effects": [],
+      "stops_before_payment": null,
+      "safety_notes": [
+        "Requires the user to already be logged in to the relevant service."
+      ]
     },
     {
       "id": "find-restaurants-and-send-on-whatsapp",
@@ -106,6 +154,30 @@
       "size_bytes": 6642,
       "github_folder_path": "skills/jira-update-fields",
       "entrypoint": "run.sh"
+    },
+    {
+      "id": "linkedin-search-people",
+      "name": "linkedin-search-people",
+      "description": "Search for people profiles on LinkedIn using keywords and filters",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "linkedin",
+        "search"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/linkedin-search-people.zip",
+      "sha256": "66f43c9bb816de42c35b1b68d2a9130df7c46daac1158247296433f822a37358",
+      "size_bytes": 8643,
+      "github_folder_path": "skills/linkedin-search-people",
+      "entrypoint": "run.sh",
+      "requires_login": true,
+      "side_effects": [],
+      "stops_before_payment": null,
+      "safety_notes": [
+        "Requires the user to already be logged in to the relevant service."
+      ]
     },
     {
       "id": "order-food-for-delivery",
@@ -244,6 +316,30 @@
       "entrypoint": "run.sh"
     },
     {
+      "id": "send-message-on-linkedin",
+      "name": "send-message-on-linkedin",
+      "description": "Send a direct chat message on LinkedIn to a contact or thread",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "linkedin",
+        "messaging"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/send-message-on-linkedin.zip",
+      "sha256": "d4032acbc18db95c529004db0745bb3d529f097d8791d4d307645cc0d55299d0",
+      "size_bytes": 7749,
+      "github_folder_path": "skills/send-message-on-linkedin",
+      "entrypoint": "run.sh",
+      "requires_login": true,
+      "side_effects": [],
+      "stops_before_payment": null,
+      "safety_notes": [
+        "Requires the user to already be logged in to the relevant service."
+      ]
+    },
+    {
       "id": "send-slack-message",
       "name": "send-slack-message",
       "description": "Post a message to a Slack channel using a Slack bot token via the Slack Web API, and return a clickable permalink to the posted message. Use this whenever the user wants to send, post, or announce a message to a Slack channel through a bot, drop a notification into Slack, or push text to a Slack channel programmatically — even if they don't say \"API\". Takes a channel and message text; posts as the bot and returns the message link.",
@@ -257,6 +353,30 @@
       "size_bytes": 5517,
       "github_folder_path": "skills/send-slack-message",
       "entrypoint": "run.sh"
+    },
+    {
+      "id": "send-connection-request",
+      "name": "send_connection_request",
+      "description": "Send a connection request to a LinkedIn user profile",
+      "type": "skill",
+      "version": "0.1.0",
+      "author": "AI Mime",
+      "tags": [
+        "linkedin",
+        "networking"
+      ],
+      "icon": "icons/ai-mime-icon.png",
+      "package_url": "packages/send-connection-request.zip",
+      "sha256": "07fb5590d00bcf05d397dccf2be346129ee517a34ff54b7b5bb059add0949cde",
+      "size_bytes": 12426,
+      "github_folder_path": "skills/send-connection-request",
+      "entrypoint": "run.sh",
+      "requires_login": true,
+      "side_effects": [],
+      "stops_before_payment": null,
+      "safety_notes": [
+        "Requires the user to already be logged in to the relevant service."
+      ]
     },
     {
       "id": "subreddit-search",

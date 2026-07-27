@@ -1,0 +1,5 @@
+{
+  "profile_url": "<OPTIONAL: LinkedIn profile URL, or null if using thread_url>",
+  "thread_url": "<OPTIONAL: LinkedIn messaging thread URL, or null if using profile_url>",
+  "message": "<FILL IN: the plain-text message to send>"
+}

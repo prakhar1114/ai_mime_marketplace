@@ -157,45 +157,39 @@ def runnable_skill_dirs(workflow_dir: Path) -> list[Path]:
     return sorted(p for p in skills_root.iterdir() if is_skill_dir(p))
 
 
-def choose_skill_dir(source: Path, explicit_skill: str | None) -> tuple[str, Path]:
-    if is_skill_dir(source):
-        return "skill", source
-
-    candidates = runnable_skill_dirs(source)
-    if explicit_skill:
-        selected = source / "skills" / explicit_skill
-        if selected not in candidates and not is_skill_dir(selected):
-            raise SystemExit(f"Skill {explicit_skill!r} was not found under {source / 'skills'}")
-        return "workflow", selected
-    if not candidates:
-        raise SystemExit(f"No runnable skill found in workflow: {source}")
-    if len(candidates) > 1:
-        names = ", ".join(p.name for p in candidates)
-        raise SystemExit(f"Multiple skills found ({names}). Re-run with --skill <name>.")
-    return "workflow", candidates[0]
+def choose_skill_dir(source: Path, explicit_skill: str | None) -> Path:
+    if not (source / "SKILL.md").is_file():
+        raise SystemExit(
+            f"Invalid source: {source}\n"
+            "Only valid skill folders containing SKILL.md in their root are allowed."
+        )
+    if not (source / "run.sh").is_file():
+        raise SystemExit(
+            f"Invalid skill folder: {source}\n"
+            "Skill folder must contain run.sh."
+        )
+    return source
 
 
-def should_skip(path: Path, rel: Path, *, workflow_root: bool) -> bool:
+def should_skip(path: Path, rel: Path) -> bool:
     if path.is_symlink():
         return True
     if any(part in SKIP_DIRS for part in rel.parts):
         return True
     if rel.name in SKIP_FILES:
         return True
-    if rel.name.startswith(".") and rel.name != ".env":
+    if rel.name == ".env" or rel.name.startswith("."):
         return True
     if rel.suffix.lower() in SKIP_SUFFIXES:
-        return True
-    if workflow_root and len(rel.parts) == 1 and rel.suffix.lower() in WORKFLOW_SCREENSHOT_SUFFIXES:
         return True
     return False
 
 
-def copy_tree_clean(src: Path, dst: Path, *, workflow_root: bool) -> list[str]:
+def copy_tree_clean(src: Path, dst: Path) -> list[str]:
     removed: list[str] = []
     for path in sorted(src.rglob("*")):
         rel = path.relative_to(src)
-        if should_skip(path, rel, workflow_root=workflow_root):
+        if should_skip(path, rel):
             removed.append(rel.as_posix())
             continue
         target = dst / rel
@@ -230,7 +224,7 @@ def chmod_run_sh(skill_dir: Path) -> None:
     run_sh.chmod(run_sh.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
 
-def validate_skill(skill_dir: Path, plan: dict[str, Any]) -> None:
+def validate_skill(skill_dir: Path) -> None:
     missing = [rel for rel in REQUIRED_SKILL_FILES if not (skill_dir / rel).is_file()]
     if missing:
         raise SystemExit("Skill package missing required file(s): " + ", ".join(missing))
@@ -239,32 +233,17 @@ def validate_skill(skill_dir: Path, plan: dict[str, Any]) -> None:
         raise SystemExit("SKILL.md frontmatter must include non-empty name and description")
     if not os.access(skill_dir / "run.sh", os.X_OK):
         raise SystemExit("run.sh is not executable")
-    example = read_json(skill_dir / "inputs" / "inputs.example.json")
-    template = read_json(skill_dir / "inputs" / "inputs.template.json")
-    required_inputs = {
-        item.get("name")
-        for item in plan.get("inputs", [])
-        if isinstance(item, dict) and item.get("required") is True and isinstance(item.get("name"), str)
-    }
-    missing_example = sorted(required_inputs - set(example))
-    missing_template = sorted(required_inputs - set(template))
-    if missing_example or missing_template:
-        raise SystemExit(
-            "Optimized plan required inputs are missing from skill inputs. "
-            f"example missing={missing_example}, template missing={missing_template}. "
-            "Use --empty-plan only if this is intentionally a direct/imported skill package."
-        )
 
 
-def package_workflow(workflow_dir: Path) -> Path:
+def package_skill(skill_dir: Path) -> Path:
     PACKAGES.mkdir(parents=True, exist_ok=True)
-    package = PACKAGES / f"{workflow_dir.name}.zip"
+    package = PACKAGES / f"{skill_dir.name}.zip"
     if package.exists():
         package.unlink()
     with zipfile.ZipFile(package, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        for path in sorted(workflow_dir.rglob("*")):
-            rel = path.relative_to(workflow_dir)
-            if path.is_file() and not should_skip(path, rel, workflow_root=True):
+        for path in sorted(skill_dir.rglob("*")):
+            rel = path.relative_to(skill_dir)
+            if path.is_file() and not should_skip(path, rel):
                 zf.write(path, rel.as_posix())
     return package
 
@@ -315,93 +294,60 @@ def migrate(args: argparse.Namespace) -> None:
     if not source.exists() or not source.is_dir():
         raise SystemExit(f"Source path is not a directory: {source}")
 
-    source_type, source_skill = choose_skill_dir(source, args.skill)
-    source_meta = read_json(source / "metadata.json") if source_type == "workflow" else {}
+    source_skill = choose_skill_dir(source, args.skill)
     source_fields, _ = parse_frontmatter(source_skill / "SKILL.md")
-    default_name = source_meta.get("name") or source_fields.get("name") or source_skill.name
+    default_name = source_fields.get("name") or source_skill.name
     display_name = (args.name or str(default_name)).strip()
-    description = (args.description or source_meta.get("description") or description_from_skill(source_skill)).strip()
-    workflow_id = args.id or slugify(display_name, fallback=source_skill.name)
-    workflow_id = slugify(workflow_id, fallback=source_skill.name)
+    description = (args.description or description_from_skill(source_skill)).strip()
+    skill_id = args.id or slugify(display_name, fallback=source_skill.name)
+    skill_id = slugify(skill_id, fallback=source_skill.name)
 
-    workflow_dst = SKILLS / workflow_id
+    skill_dst = SKILLS / skill_id
     if args.dry_run:
-        print(f"source_type={source_type}")
         print(f"source_skill={source_skill}")
-        print(f"workflow_id={workflow_id}")
+        print(f"skill_id={skill_id}")
         print(f"display_name={display_name}")
         print(f"description={description}")
         return
 
-    if workflow_dst.exists():
+    if skill_dst.exists():
         if not args.replace:
-            raise SystemExit(f"Destination already exists: {workflow_dst}. Use --replace to update it.")
-        shutil.rmtree(workflow_dst)
-    workflow_dst.mkdir(parents=True, exist_ok=True)
+            raise SystemExit(f"Destination already exists: {skill_dst}. Use --replace to update it.")
+        shutil.rmtree(skill_dst)
+    skill_dst.mkdir(parents=True, exist_ok=True)
 
-    removed: list[str] = []
-    if source_type == "workflow":
-        for rel in ("metadata.json", "schema.json", "optimized_plan.json"):
-            src_file = source / rel
-            if src_file.is_file():
-                shutil.copy2(src_file, workflow_dst / rel)
-        skill_dst = workflow_dst / "skills" / source_skill.name
-        skill_dst.parent.mkdir(parents=True, exist_ok=True)
-        removed = copy_tree_clean(source_skill, skill_dst, workflow_root=False)
-        removed.extend(copy_tree_clean(source, workflow_dst / ".ignored-for-report", workflow_root=True) if False else [])
-    else:
-        skill_dst = workflow_dst / "skills" / slugify(source_skill.name, fallback="imported-skill")
-        skill_dst.parent.mkdir(parents=True, exist_ok=True)
-        removed = copy_tree_clean(source_skill, skill_dst, workflow_root=False)
-
-    if not (workflow_dst / "schema.json").is_file():
-        write_json(workflow_dst / "schema.json", {})
-    if args.empty_plan or not (workflow_dst / "optimized_plan.json").is_file():
-        write_json(workflow_dst / "optimized_plan.json", {})
-
-    metadata = read_json(workflow_dst / "metadata.json")
-    metadata.update({
-        "name": display_name,
-        "description": description,
-        "source": "marketplace",
-    })
-    metadata.setdefault("created_at", time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
-    write_json(workflow_dst / "metadata.json", metadata)
+    removed = copy_tree_clean(source_skill, skill_dst)
 
     ensure_skill_frontmatter(skill_dst, name=source_fields.get("name") or skill_dst.name, description=description)
     chmod_run_sh(skill_dst)
-    schema = read_json(workflow_dst / "schema.json")
-    plan = read_json(workflow_dst / "optimized_plan.json")
-    validate_skill(skill_dst, plan)
+    validate_skill(skill_dst)
 
-    package = package_workflow(workflow_dst)
+    package = package_skill(skill_dst)
     side_effects = [s.strip() for s in (args.side_effect or []) if s.strip()]
     stops_before_payment = None if args.stops_before_payment == "unknown" else args.stops_before_payment == "yes"
     tags = [slugify(tag, fallback="tag") for tag in (args.tag or [])]
     item = {
-        "id": workflow_id,
+        "id": skill_id,
         "name": display_name,
         "description": description,
-        "type": "workflow",
+        "type": "skill",
         "version": args.version,
         "author": args.author,
         "tags": tags,
         "icon": DEFAULT_ICON,
-        "github_folder_path": f"skills/{workflow_id}",
         "package_url": f"packages/{package.name}",
         "sha256": sha256(package),
         "size_bytes": package.stat().st_size,
-        "entrypoint": f"skills/{skill_dst.name}/run.sh",
-        "skill_name": parse_frontmatter(skill_dst / "SKILL.md")[0].get("name") or skill_dst.name,
+        "github_folder_path": f"skills/{skill_id}",
+        "entrypoint": "run.sh",
         "requires_login": bool(args.requires_login),
         "side_effects": side_effects,
         "stops_before_payment": stops_before_payment,
         "safety_notes": build_safety_notes(bool(args.requires_login), side_effects, stops_before_payment),
-        "removed_during_migration": removed[:100],
     }
     upsert_manifest_item(item, replace=args.replace)
-    print(f"Added marketplace item: {workflow_id}")
-    print(f"Workflow: {workflow_dst}")
+    print(f"Added marketplace item: {skill_id}")
+    print(f"Skill directory: {skill_dst}")
     print(f"Package: {package}")
 
 
