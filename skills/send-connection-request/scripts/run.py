@@ -273,6 +273,16 @@ def page_state():
   };
   const topSections = Array.from(document.querySelectorAll('main section')).slice(0, 3);
   const topText = norm(topSections.map(s => s.innerText || '').join('\\n'));
+  // The profile owner's own degree lives in the FIRST top-card section only.
+  // It uses a middot separator ("Name · 2nd"); feed/mutual badges use a
+  // bullet ("• 1st"), so scoping to the first section and the middot form
+  // avoids false positives from other people's 1st-degree badges in the feed.
+  const firstSection = document.querySelector('main section');
+  const firstText = firstSection ? norm(firstSection.innerText || '') : '';
+  let ownerDegree = '';
+  const degreeMatch = firstText.match(/·\\s*(1st|2nd|3rd)\\b/i);
+  if (degreeMatch) ownerDegree = degreeMatch[1].toLowerCase();
+  else if (/\\b1st degree connection\\b/i.test(firstText)) ownerDegree = '1st';
   const controls = Array.from(document.querySelectorAll('main button, main a, main [role="button"]'))
     .filter(visible)
     .map((el, index) => {
@@ -296,6 +306,7 @@ def page_state():
     title: document.title,
     bodyText: norm(document.body ? document.body.innerText : ''),
     topText,
+    ownerDegree,
     controls: topControls
   };
 })()
@@ -469,7 +480,8 @@ def find_status():
         return {"status": "failed", "message": "The LinkedIn profile did not load or is unavailable."}
     if any(pending_profile_action(control) for control in controls):
         return {"status": "pending", "message": "A connection request is already pending for this profile."}
-    if "· 1st" in top_text or " 1st" in lower_top or "1st degree connection" in lower_top:
+    owner_degree = normalize(state.get("ownerDegree", "")).lower()
+    if owner_degree == "1st":
         return {"status": "already_connected", "message": "This profile is already connected."}
     return {"status": None, "message": "", "state": state}
 

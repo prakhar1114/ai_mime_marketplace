@@ -2,7 +2,7 @@
   "version": 1,
   "name": "AI Mime Skills Marketplace",
   "homepage": "https://aimime.cc/",
-  "updated_at": "2026-07-27T07:10:14Z",
+  "updated_at": "2026-07-27T19:05:12Z",
   "items": [
     {
       "id": "book-ticket-irctc",
@@ -367,8 +367,8 @@
       ],
       "icon": "icons/ai-mime-icon.png",
       "package_url": "packages/send-connection-request.zip",
-      "sha256": "07fb5590d00bcf05d397dccf2be346129ee517a34ff54b7b5bb059add0949cde",
-      "size_bytes": 12426,
+      "sha256": "b98b3a615d37491a7bf22300d3ba2b6219bd3607d5fa50fcfcab63fc8f79a523",
+      "size_bytes": 12735,
       "github_folder_path": "skills/send-connection-request",
       "entrypoint": "run.sh",
       "requires_login": true,
